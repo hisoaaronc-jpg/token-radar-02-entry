@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Launch Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <h1>Token Launch Radar</h1>
+      <p class="tagline">Protocols whose token does not exist yet, ranked by what that token might be worth — and exactly how to farm each one.</p>
+    </div>
+    <div class="stamp">
+      <div class="stamp-label">Snapshot</div>
+      <div class="stamp-value" id="stat-date">—</div>
+    </div>
+  </div>
+  <div class="statbar">
+    <div class="stat"><span class="stat-num" id="stat-scanned">—</span><span class="stat-name">protocols scanned</span></div>
+    <div class="stat"><span class="stat-num" id="stat-board">—</span><span class="stat-name">pre-token on board</span></div>
+    <div class="stat"><span class="stat-num" id="stat-watch">—</span><span class="stat-name">watchlist covered</span></div>
+    <div class="stat"><span class="stat-num" id="stat-total">—</span><span class="stat-name">combined implied value</span></div>
+  </div>
+</header>
+
+<section class="controls">
+  <input id="q" type="search" placeholder="Search protocol or slug…" autocomplete="off">
+  <select id="f-category"><option value="">All categories</option></select>
+  <select id="f-chain"><option value="">All chains</option></select>
+  <select id="f-sort">
+    <option value="value">Sort: implied value</option>
+    <option value="tvl">Sort: TVL</option>
+    <option value="change">Sort: 7d change</option>
+    <option value="score">Sort: radar score</option>
+  </select>
+  <label class="check"><input id="f-watch" type="checkbox"> Watchlist only</label>
+  <span class="count" id="count"></span>
+</section>
+
+<main class="layout">
+  <section class="board-wrap">
+    <table class="board">
+      <thead>
+        <tr>
+          <th class="num">#</th>
+          <th>Protocol</th>
+          <th>Category</th>
+          <th>Chains</th>
+          <th class="num">TVL</th>
+          <th class="num">7d</th>
+          <th class="num">Implied value</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>No protocols match the current filters.</p>
+  </section>
+
+  <aside class="detail" id="detail">
+    <p class="detail-hint">Select a protocol to see why the model ranks it here and the steps to farm it.</p>
+  </aside>
+</main>
+
+<footer class="foot">
+  <p><strong>How the ranking works.</strong> For every category, the radar learns a market-cap-to-TVL multiple from the protocols in the snapshot that already have a token (category median, shrunk toward the global median when samples are few). A pre-token protocol's implied value is its TVL × its category multiple × a momentum factor from its 7-day TVL change × a maturity factor from how long it has been tracked. The model is rebuilt from the snapshot on every run — no hand-kept list — so a protocol that appears in tomorrow's data is ranked the moment it exists.</p>
+  <p class="fine">Implied value is a model's estimate, not a promise: most pre-token protocols launch lower, later, or never. Farm with money you can afford to strand.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
